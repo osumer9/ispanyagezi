@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#a8432a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Gezi">
+<title>Gezi</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main id="lock" class="lock">
+  <h1>Gezi</h1>
+  <form id="lock-form">
+    <label for="pass">Parola</label>
+    <input id="pass" type="password" autocomplete="current-password" autocapitalize="none" spellcheck="false" required>
+    <label class="remember"><input id="remember" type="checkbox" checked> Bu cihazda hatırla</label>
+    <button type="submit">Aç</button>
+    <p id="lock-msg" role="alert"></p>
+  </form>
+</main>
+<div id="app" hidden>
+  <header class="top"><span id="top-title"></span><button id="logout" class="link">Kilitle</button></header>
+  <section id="view"></section>
+  <nav class="tabs" aria-label="Bölümler">
+    <button data-tab="today">Bugün</button>
+    <button data-tab="program">Program</button>
+    <button data-tab="tickets">Biletler</button>
+    <button data-tab="info">Bilgi</button>
+  </nav>
+</div>
+<dialog id="viewer"><button id="viewer-close">Kapat</button><p id="viewer-title"></p><img id="viewer-qr" alt="Bilet QR kodu"><img id="viewer-img" alt="Biletin tamamı"></dialog>
+<script src="app.js"></script>
+</body>
+</html>
