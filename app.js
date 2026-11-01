@@ -104,14 +104,15 @@ function render() {
 async function showTicket(id) {
   const t = data.tickets.find((x) => x.id === id);
   if (!blobs.has(id)) {
-    const [page, qr] = await Promise.all([open(`vault/${t.file}`), open(`vault/${t.qrFile}`)]);
+    const [page, qr] = await Promise.all([open(`vault/${t.file}`), t.qrFile ? open(`vault/${t.qrFile}`) : null]);
     blobs.set(id, {
       page: URL.createObjectURL(new Blob([page], { type: 'image/jpeg' })),
-      qr: URL.createObjectURL(new Blob([qr], { type: 'image/png' })),
+      qr: qr && URL.createObjectURL(new Blob([qr], { type: 'image/png' })),
     });
   }
   $('viewer-title').textContent = `${t.title} · ${t.time}`;
-  $('viewer-qr').src = blobs.get(id).qr;
+  $('viewer-qr').hidden = !blobs.get(id).qr;
+  $('viewer-qr').src = blobs.get(id).qr || '';
   $('viewer-img').src = blobs.get(id).page;
   $('viewer').showModal();
   try { await navigator.wakeLock?.request('screen'); } catch {}
