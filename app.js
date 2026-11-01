@@ -37,7 +37,7 @@ async function unlock() {
 const ticketBtn = (t) => `<button class="open-btn" data-ticket="${esc(t.id)}">${esc(t.title)} · ${esc(t.time)}</button>`;
 
 function dayCard(d) {
-  const tickets = data.tickets.filter((t) => t.day === d.n);
+  const tickets = data.tickets.filter((t) => t.day === d.n || t.days?.includes(d.n));
   const stops = d.stops.map(([label, q]) =>
     `<a class="chip" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}">${esc(label)}</a>`).join('');
   return `<article class="card">
@@ -66,7 +66,7 @@ const views = {
   },
   tickets() {
     const ready = data.tickets.map((t) => `<div class="card"><div class="row">
-      <h3>${esc(t.title)}</h3><span class="when">${t.day} Kas ${esc(t.time)}</span>
+      <h3>${esc(t.title)}</h3><span class="when">${t.day ? `${t.day} Kas ` : ''}${esc(t.time)}</span>
       <div class="sub">${esc(t.who)} · ${esc(t.note)}<br>${esc(t.refs)}</div></div>
       <button class="open-btn" data-ticket="${esc(t.id)}">Bileti aç</button></div>`).join('');
     const booked = data.bookings.map((b) => `<div class="card"><div class="row">
